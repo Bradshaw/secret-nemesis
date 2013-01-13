@@ -2,6 +2,7 @@ Design
 ======
 
 -	Phat server, skinny client
+
 	> While the client should be busy making things look nice, we won't trust him, and in fact, running the game on the server makes sense.
 
 
