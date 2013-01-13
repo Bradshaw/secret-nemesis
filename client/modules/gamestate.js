@@ -2,6 +2,7 @@ var gs = {};
 gs.current = null;
 gs.next = null;
 gs.switchargs = [];
+gs.states = {};
 
 
 /**	Switch to new gamestate on next update
@@ -10,6 +11,9 @@ gs.switchargs = [];
 *	next state.
 */
 gs.switchstate = function(nextstate) { // Nextstate needs to be a gamestate
+
+	console.log('Switching to '+nextstate.name)
+
 	// Set the next state
 	gs.next = nextstate;
 	// Create an array to store extra arguments
@@ -26,6 +30,7 @@ gs.switchstate = function(nextstate) { // Nextstate needs to be a gamestate
 *	state
 */
 gs.update = function() {
+
 	// If there's a state to switch to
 	if (gs.next) {
 		// If there's a current state
@@ -72,6 +77,7 @@ gs.gamestate = function(name) {
 	// Set the attributes
 	this.name = name;
 	this.initialised = false;
+	gs.states[name] = this;
 }
 
 /* Default methods */
