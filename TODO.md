@@ -29,12 +29,13 @@ Client
 
 	Input events should be accessible via a simple interface.
 	Like:
-	> input.assign( 'w', 'jump' );
-	> input.on( 'jump',
-	>	function(){
-	>		do.stuff();
-	>	}
-	> );''
+	
+		input.assign( 'w', 'jump' );
+		input.on( 'jump',
+			function(){
+				do.stuff();
+			}
+		);
 
 -	Sound and image manager
 
