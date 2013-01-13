@@ -1,1 +1,1 @@
-console.log('input.js loaded')
+var input = {}

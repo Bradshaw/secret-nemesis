@@ -36,29 +36,23 @@ var tempLoop = setInterval(function(){
   dispLog();
 },50);
 
-console.log('Temporary loop started');
-
-console.log('Initialising socket');
 var socket = io.connect('http://localhost');
 socket.on('ping',function(){
+  //console.log('Caught ping!')
   socket.emit('pong');
 });
 
-console.log('Loading boot modules');
 need('modules/gamestate.js',function(data){
-  console.log('Loader module started');
   eval(data);
   need('modules/loader.js',function(d){
     eval(d);
-    console.log('Starting gamestate loop')
     clearInterval(tempLoop);
     setInterval(function(){
       gs.update();
-    },(1000/5))
+    },(1000/60))
     main = false;
     loader.require('modules/input.js');
     loader.require('app/main.js');
-    console.log('Switching control to loadState');
     gs.switchstate(loader.state);
   })
 },'script');

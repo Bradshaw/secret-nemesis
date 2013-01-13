@@ -37,7 +37,6 @@ loader.state.init = function(){
       }
     } 
   }
-  console.log('Initialised loader state')
 }
 
 loader.state.enter = function(loadables){
@@ -63,7 +62,7 @@ loader.state.update = function(){
   ctx.fillRect(canvas.width/4+1,canvas.height/2-19,(canvas.width/2-2)*(1-(self.left/self.total)),38);
   if (self.left==0) {
     if (self.next) {
-      //gs.switchstate(self.next);
+      gs.switchstate(self.next);
     } else if (gs.states['main']) {
       gs.switchstate(gs.states['main']);
     } else {

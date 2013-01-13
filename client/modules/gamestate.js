@@ -11,9 +11,6 @@ gs.states = {};
 *	next state.
 */
 gs.switchstate = function(nextstate) { // Nextstate needs to be a gamestate
-
-	console.log('Switching to '+nextstate.name)
-
 	// Set the next state
 	gs.next = nextstate;
 	// Create an array to store extra arguments
