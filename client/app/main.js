@@ -37,9 +37,11 @@ main.update = function() {
 	ctx.fillStyle = '#131313';
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	ctx.fillStyle = 'grey';
+	ctx.textAlign = 'center';
 	ctx.font = '10px Arial';
-	ctx.fillText('Press down modafoka!', canvas.width/2-60, canvas.height/2);
-	ctx.fillText((eventor.isDown(40)?'Cool':''), canvas.width/2-60, canvas.height/2+12);
+	var msg = 'Press down modafoka!'
+	ctx.fillText(msg, canvas.width/2, canvas.height/2);
+	ctx.fillText((input.isDown(40)?'Cool':''),  canvas.width/2, canvas.height/2+12);
 	dispLog();
 };
 
