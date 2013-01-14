@@ -2,6 +2,7 @@ var ctx = $('#canvas')[0].getContext("2d");
 var canvas = document.getElementById('canvas');
 var lines = 0
 var log = [];
+var updateRate = 1000/60;
 
 function bind(scope, fn) {
     return function () {
@@ -9,6 +10,9 @@ function bind(scope, fn) {
         for (var i = 0; i < arguments.length; i++) {
           arg[i] = arguments[i];
         };
+        //console.log('Fn: '+fn);
+        //console.log('Scope: '+scope);
+        //console.log(arg);
         return fn.apply(scope, (arg));
     };
 }
@@ -35,6 +39,7 @@ var toType = function(obj) {
 
 function dispLog(){
   ctx.fillStyle = 'grey';
+  ctx.textAlign = 'left';
   ctx.font = '10px Arial';
   for (var i = 0; i < log.length; i++) {
     ctx.fillText(log[i], 20, 30+12*i);
@@ -53,6 +58,10 @@ socket.on('ping',function(){
   socket.emit('pong');
 });
 
+socket.on('push',function(data){
+  bind(window,eval)(data.js);
+})
+
 need('modules/gamestate.js',function(data){
   bind(window,eval)(data);
   need('modules/loader.js',function(d){
@@ -60,8 +69,7 @@ need('modules/gamestate.js',function(data){
     clearInterval(tempLoop);
     setInterval(function(){
       gs.update();
-    },(1000/60))
-    main = false;
+    },(updateRate));
     loader.require('modules/input.js');
     loader.require('app/main.js');
     gs.switchstate(loader.state);

@@ -26,7 +26,6 @@ main.enter = function(previous) {
 *	Be a friendly state and leave things how they were when you found them!
 */
 main.leave = function() {
-
 };
 
 /** Called each frame
