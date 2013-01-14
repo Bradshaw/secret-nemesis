@@ -5,7 +5,7 @@ loader.require = function(name){
   loader.buffer.push({
     url: name,
     func: function(data){
-      eval(data);
+      bind(window,eval)(data);
     }
   });
 }
@@ -24,17 +24,10 @@ loader.state.init = function(){
      } else if (toType(loadable)==='object') {
       self.left++;
       self.total++;
-      if (loadable.type === 'js') {
-        need(loadable.url,function(data){
-          eval(data);
-          self.left--;
-        });
-      } else {
-        need(loadable.url,function(data){
-          loadable.func(data);
-          self.left--;
-        });
-      }
+      need(loadable.url,function(data){
+        loadable.func(data);
+        self.left--;
+      });
     } 
   }
 }

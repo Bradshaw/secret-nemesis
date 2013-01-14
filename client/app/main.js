@@ -38,40 +38,15 @@ main.update = function() {
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	ctx.fillStyle = 'grey';
 	ctx.font = '10px Arial';
-	ctx.fillText('Rocking the main loop!', canvas.width/2-60, canvas.height/2);
+	ctx.fillText('Press down modafoka!', canvas.width/2-60, canvas.height/2);
+	ctx.fillText((eventor.isDown(40)?'Cool':''), canvas.width/2-60, canvas.height/2+12);
 	dispLog();
 };
 
-/**	Called when keys are pressed
+/**	Called when events happen
 *
-*	key - name of the pressed key
+*	event - object containing the event that occurred
 */
-main.keypressed = function(key) {
-
-};
-
-/**	Called when keys are released
-*
-*	key - name of the released key
-*/
-main.keyreleased = function(key) {
-
-};
-
-/**	Called when mouse buttons are pressed
-*
-*	btn - number of the mouse button
-*	x,y - coordinates where the event occured
-*/
-main.mousepressed = function(btn, x, y) {
-
-};
-
-/**	Called when mouse buttons are released
-*
-*	btn - number of the mouse button
-*	x,y - coordinates where the event occured
-*/
-main.mousereleased = function(btn, x, y) {
+main.eventreg = function(event) {
 
 };

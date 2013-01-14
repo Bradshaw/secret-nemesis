@@ -109,28 +109,8 @@ gs.gamestate.prototype.leave = function() {};
 */
 gs.gamestate.prototype.update = function() {};
 
-/**	Called when keys are pressed
+/**	Called when events happen
 *
-*	key - name of the pressed key
+*	event - object containing the event that occurred
 */
-gs.gamestate.prototype.keypressed = function(key) {};
-
-/**	Called when keys are released
-*
-*	key - name of the released key
-*/
-gs.gamestate.prototype.keyreleased = function(key) {};
-
-/**	Called when mouse buttons are pressed
-*
-*	btn - number of the mouse button
-*	x,y - coordinates where the event occured
-*/
-gs.gamestate.prototype.mousepressed = function(btn, x, y) {};
-
-/**	Called when mouse buttons are released
-*
-*	btn - number of the mouse button
-*	x,y - coordinates where the event occured
-*/
-gs.gamestate.prototype.mousereleased = function(btn, x, y) {};
+gs.gamestate.prototype.eventreg = function(event) {};

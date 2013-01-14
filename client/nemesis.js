@@ -3,7 +3,33 @@ var canvas = document.getElementById('canvas');
 var lines = 0
 var log = [];
 
-/**/
+Function.prototype.inContext = function()
+{ 
+  var fn = this, 
+      args = Array.prototype.slice.call(arguments), 
+      object = args.shift(); 
+  return function()
+  { 
+    return fn.apply(object, args.concat(Array.prototype.slice.call(arguments))); 
+  }; 
+};
+
+function alertMsg(message) {
+    return alert(this + message);
+}
+
+function bind(scope, fn) {
+    return function () {
+        var arg = [];
+        for (var i = 0; i < arguments.length; i++) {
+          arg[i] = arguments[i];
+        };
+        return fn.apply(scope, (arg));
+    };
+}
+
+
+/**
 console.log = function (s){
   lines++;
   log.push(s)
@@ -43,14 +69,15 @@ socket.on('ping',function(){
 });
 
 need('modules/gamestate.js',function(data){
-  eval(data);
+  bind(window,eval)(data);
   need('modules/loader.js',function(d){
-    eval(d);
+    bind(window,eval)(d);
     clearInterval(tempLoop);
     setInterval(function(){
       gs.update();
     },(1000/60))
     main = false;
+    loader.require('modules/events.js');
     loader.require('modules/input.js');
     loader.require('app/main.js');
     gs.switchstate(loader.state);
