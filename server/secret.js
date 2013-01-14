@@ -1,3 +1,4 @@
+var mime = require('mime');
 app = require('http').createServer(handler)
   , io = require('socket.io').listen(app)
   , fs = require('fs');
@@ -20,8 +21,11 @@ io.set('log level',1)
 
 app.listen(1986);
 
+lol = 0;
+
 function handler (req, res) {
   var filename = req.url;
+  lol = req;
   if (filename === '/') {
     filename = '/index.html';
   }
@@ -31,8 +35,7 @@ function handler (req, res) {
       res.writeHead(500);
       return res.end('Mistakes were made...');
     }
-
-    res.writeHead(200);
+    res.writeHead(200, {'Content-Type': mime.lookup(filename)});
     res.end(data);
   });
 }
@@ -41,6 +44,14 @@ function clock(){
 }
 
 io.sockets.on('connection', function (socket) {
+
+  socket.emit('load',{url: 'nemeload.js'});
+
+  setTimeout(function(){
+    socket.emit('push',{js: 'console.log("works?");'});
+  }
+  ,5000);
+
   /* Ping testing */
   // Every second
   setInterval(function(){

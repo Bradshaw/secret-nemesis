@@ -3,10 +3,7 @@ loader.buffer = [];
 
 loader.require = function(name){
   loader.buffer.push({
-    url: name,
-    func: function(data){
-      bind(window,eval)(data);
-    }
+    url: name
   });
 }
 
@@ -24,8 +21,7 @@ loader.state.init = function(){
      } else if (toType(loadable)==='object') {
       self.left++;
       self.total++;
-      need(loadable.url,function(data){
-        loadable.func(data);
+      loadScript(loadable.url,function(data){
         self.left--;
       });
     } 
