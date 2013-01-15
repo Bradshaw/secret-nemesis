@@ -47,10 +47,12 @@ io.sockets.on('connection', function (socket) {
 
   socket.emit('load',{url: 'nemeload.js'});
 
+  /*
   setTimeout(function(){
     socket.emit('push',{js: 'console.log("works?");'});
   }
   ,5000);
+  */
 
   /* Ping testing */
   // Every second

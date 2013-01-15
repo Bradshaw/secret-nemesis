@@ -14,26 +14,17 @@ loader.onDone = function(state){
 loader.state = new gs.gamestate('loader');
 loader.state.init = function(){
   self.load = function(loadable){
-     if (toType(loadable)==='array') {
-      for (var i = 0; i < loadable.length; i++) {
-        self.load(loadable[i]);
-      };
-     } else if (toType(loadable)==='object') {
-      self.left++;
-      self.total++;
-      loadScript(loadable.url,function(data){
-        self.left--;
-      });
-    } 
+    self.left++;
+    self.total++;
+    loadScript(loadable.url,function(data){
+      self.left--;
+    });
   }
 }
 
-loader.state.enter = function(loadables){
+loader.state.enter = function(){
   self.left=0;
   self.total=0;
-  for (var i = 0; i < loadables.length; i++) {
-    self.load(loadables[i]);
-  };
   for (var i = 0; i < loader.buffer.length; i++) {
     self.load(loader.buffer[i]);
   };
