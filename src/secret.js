@@ -29,7 +29,7 @@ function handler (req, res) {
   if (filename === '/') {
     filename = '/index.html';
   }
-  fs.readFile(__dirname + '/../client' + filename,
+  fs.readFile(__dirname + filename,
   function (err, data) {
     if (err) {
       res.writeHead(500);
