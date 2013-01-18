@@ -3,6 +3,8 @@ var mime = require('mime')
   , io = require('socket.io').listen(app)
   , fs = require('fs');
 
+
+/*
 var repl = require('repl');
 var rep = repl.start({
   prompt: "server> ",
@@ -16,6 +18,7 @@ rep.on('exit', function () {
   console.log('Got "exit" event from repl!');
   process.exit();
 });
+*/
 
 io.set('log level',1)
 
