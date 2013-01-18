@@ -14,6 +14,8 @@ socket.on('push',function(data){
     loadJS(data.js);
 })
 
+/* lolilol */
+
 function loadScript(url, callback)
 {
     // adding the script tag to the head as suggested before
