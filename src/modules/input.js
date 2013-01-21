@@ -1,5 +1,8 @@
 var input = {}
 
+var canvas = document.getElementById('canvas');
+canvas.onselectstart = function () { return false; }
+
 input.downkeys = [];
 
 input.buffer = [];
@@ -9,7 +12,7 @@ input.event = function(type, e){
 	if (this.type==input.type.KEYBOARD || this.type==input.type.TEXTINPUT) {
 		this.code = e.keyCode;
 		this.letter = String.fromCharCode(e.keyCode);
-	} else if (this.type==input.MOUSE) {
+	} else if (this.type==input.type.MOUSE) {
 		this.x = e.pageX-$('#canvas').offset().left;
 		this.y = e.pageY-$('#canvas').offset().top;
 		this.btn = e.which;
@@ -45,16 +48,31 @@ input.e = function(e){
 jQuery(document).keydown(function(e){
 	if (!input.downkeys[e.keyCode]) {
 		input.downkeys[e.keyCode]=true;
-		input.buffer.push(new input.event(input.KEYBOARD, e));
+		var ev = new input.event(input.type.KEYBOARD, e)
+		socket.emit('event',{type: 'down', code: e.keyCode});
+		input.buffer.push(ev);
 	}
 });
 
 jQuery(document).keyup(function(e){
+	socket.emit('event',{type: 'up', code: e.keyCode});
 	input.downkeys[e.keyCode]=false;
 });
 
+jQuery(document).mousedown(function(e){
+	var ev = new input.event(input.type.MOUSE, e)
+	socket.emit('event',{type: 'down', code: e.keyCode});
+	input.buffer.push(ev);
+});
+
+jQuery(document).mouseup(function(e){
+	socket.emit('event',{type: 'up', code: e.keyCode});
+	//input.downkeys[e.keyCode]=false;
+});
+
 jQuery(document).keypress(function(e){
-	input.buffer.push(new input.event(input.TEXTINPUT, e));
+	socket.emit('event',{type: 'press', code: e.keyCode});
+	input.buffer.push(new input.event(input.type.TEXTINPUT, e));
  	var n = String.fromCharCode(e.keyCode);
 });
 

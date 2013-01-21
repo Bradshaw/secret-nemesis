@@ -1,5 +1,13 @@
 var main = new gs.gamestate('main');
 
+function zap(x1,y1,x2,y2){
+	this.x1 = x1;
+	this.y1 = y1;
+	this.x2 = x2;
+	this.y2 = y2;
+	this.time = 3;
+}
+
 // This is where the user writes his app.
 // Redefine the functions below for beautiful awesomness...
 
@@ -14,8 +22,9 @@ main.init = function() {
 		y: 200,
 		dx: 0,
 		dy: 0,
-		shoot: 0
+		shoot: 0.1
 	}
+	zaps = [];
 };
 
 /**	Prepares the state for entry
@@ -47,31 +56,51 @@ main.update = function() {
 	if (input.isDown(37)) {unit.dx -= 1};
 	while (input.buffer.length>0) {
 		var e = input.buffer.pop();
-		if (e.btn==32){
-			unit.shoot += 5;
+		if (e.type == input.type.MOUSE){
+			zaps.push(new zap(unit.x, unit.y, (input.getX()-unit.x)*1000, (input.getY()-unit.y)*1000) ) ;
+			//console.log(zaps.length)
+			//for (var i = 0; i < zaps.length; i++) {
+				//console.log(zaps[i].x1);
+			//};
 		}
 	}
 
-	unit.dx*=0.85
-	unit.dy*=0.85
+	//unit.dx*=0.85
+	//unit.dy*=0.85
+
+	unit.dx-=(unit.dx)/5
+	unit.dy-=(unit.dy)/5
 
 	unit.x+=unit.dx
 	unit.y+=unit.dy
 
-	unit.shoot*=0.9;
+	for (var i = 0; i < zaps.length; i++) {
+		zaps[i].time-=0.3
+	};
+
+	var i = 0;
+	while (i<zaps.length) {
+		if (zaps[i].time<=0.001){
+			zaps.splice(i,1);
+		} else {
+			i++;
+		}
+	}
 
 
 	// Draw
 	ctx.fillStyle = '#131313';
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	ctx.fillStyle = '#888888';
-	ctx.fillRect(unit.x-2.5,unit.y-2.5,5,5);
+	ctx.fillRect(unit.x-5,unit.y-5,10,10);
 	ctx.strokeStyle = '#888888';
-	ctx.setLineWidth(unit.shoot*unit.shoot);
-	ctx.beginPath();
-	ctx.moveTo(unit.x, unit.y);
-	ctx.lineTo((input.getX()-unit.x)*1000,(input.getY()-unit.y)*1000);
-	ctx.stroke();
+	for (var i = 0; i < zaps.length; i++) {
+		ctx.setLineWidth( zaps[i].time * zaps[i].time );
+		ctx.beginPath();
+		ctx.moveTo(zaps[i].x1, zaps[i].y1);
+		ctx.lineTo(zaps[i].x2, zaps[i].y2);
+		ctx.stroke();
+	};
 
 	dispLog();
 };
