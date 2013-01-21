@@ -48,7 +48,7 @@ function clock(){
 
 io.sockets.on('connection', function (socket) {
 
-  socket.emit('load',{url: 'nemeload.js'});
+  socket.emit('load',{url: 'nemeload.js', callback: function(){ console.log("called"); }});
 
   /*
   setTimeout(function(){

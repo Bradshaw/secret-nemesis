@@ -59,9 +59,23 @@ jQuery(document).keypress(function(e){
 });
 
 jQuery(document).mousemove(function(e){
-
+	input.mouse.x = e.pageX-$('#canvas').offset().left;
+	input.mouse.y = e.pageY-$('#canvas').offset().top;
 })
+
+input.mouse = {
+	x: 0,
+	y: 0
+}
 
 input.isDown = function(key){
 	return input.downkeys[key];
+}
+
+input.getX = function(){
+	return input.mouse.x;
+}
+
+input.getY = function(){
+    return input.mouse.y;
 }
