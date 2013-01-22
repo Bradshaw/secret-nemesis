@@ -18,7 +18,7 @@ function bind(scope, fn) {
 }
 
 
-/**/
+/**
 console.log = function (s){
   lines++;
   log.push(s)

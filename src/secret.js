@@ -73,4 +73,8 @@ io.sockets.on('connection', function (socket) {
       socket.set('ping',clock()-data);
     });
   });
+
+  socket.on('zap',function(data){
+    socket.emit('zap',data)
+  })
 });

@@ -1,4 +1,28 @@
 <head>
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
+	<script>
+	/**
+	SC.initialize({
+	  client_id: '98c8e62826b1df3063b737655cb28090'
+	});
+
+	SC.get('/tracks', { q: 'glitch', license: 'cc-by-sa'}, function(tracks) {
+  		//console.log(tracks);
+  		var i = Math.floor(Math.random()*tracks.length);
+  		music = tracks[i];
+  		var bpm = 60000/140;
+  		if (music.bpm) bpm = (60000/music.bpm)
+  		SC.stream(tracks[i].id, function(sound){
+  			bounce = 2;
+  			setInterval(function(){
+  				bounce = 2;
+  				console.log(bounce);
+  			},(bpm));
+  			sound.play();
+  		});
+	});
+	/**/
+	</script>
 </head>
 
 <body bgcolor="#131313" background="images/backgr.png">

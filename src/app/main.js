@@ -25,6 +25,10 @@ main.init = function() {
 		shoot: 0.1
 	}
 	zaps = [];
+	socket.on('zap',function(data){
+		//console.log('Zapped')
+		zaps.push(data);
+	})
 };
 
 /**	Prepares the state for entry
@@ -57,7 +61,8 @@ main.update = function() {
 	while (input.buffer.length>0) {
 		var e = input.buffer.pop();
 		if (e.type == input.type.MOUSE){
-			zaps.push(new zap(unit.x, unit.y, (input.getX()-unit.x)*1000, (input.getY()-unit.y)*1000) ) ;
+			socket.emit('zap', new zap(unit.x, unit.y, (input.getX()-unit.x)*1000, (input.getY()-unit.y)*1000) )
+			//zaps.push(new zap(unit.x, unit.y, (input.getX()-unit.x)*1000, (input.getY()-unit.y)*1000) ) ;
 			//console.log(zaps.length)
 			//for (var i = 0; i < zaps.length; i++) {
 				//console.log(zaps[i].x1);
@@ -75,7 +80,7 @@ main.update = function() {
 	unit.y+=unit.dy
 
 	for (var i = 0; i < zaps.length; i++) {
-		zaps[i].time-=0.3
+		zaps[i].time*=0.9
 	};
 
 	var i = 0;
@@ -100,7 +105,21 @@ main.update = function() {
 		ctx.moveTo(zaps[i].x1, zaps[i].y1);
 		ctx.lineTo(zaps[i].x2, zaps[i].y2);
 		ctx.stroke();
+		ctx.closePath();
 	};
+
+	/**
+	if (music) {
+		ctx.beginPath();
+		ctx.fillStyle = '#888899';
+		ctx.strokeStyle = '#998888';
+		ctx.setLineWidth(1);
+		ctx.fillText(music.user.username+' - '+music.title,10,390);
+		ctx.strokeText(music.user.username+' - '+music.title,10,390);
+		ctx.stroke();
+		ctx.closePath();
+	}
+	/**/
 
 	dispLog();
 };
