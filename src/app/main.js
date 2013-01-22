@@ -108,19 +108,6 @@ main.update = function() {
 		ctx.closePath();
 	};
 
-	/**
-	if (music) {
-		ctx.beginPath();
-		ctx.fillStyle = '#888899';
-		ctx.strokeStyle = '#998888';
-		ctx.setLineWidth(1);
-		ctx.fillText(music.user.username+' - '+music.title,10,390);
-		ctx.strokeText(music.user.username+' - '+music.title,10,390);
-		ctx.stroke();
-		ctx.closePath();
-	}
-	/**/
-
 	dispLog();
 };
 
