@@ -15,6 +15,7 @@ Entity graph
 ------------
 
 >	Contains entities which have a standard format
+
 		type: name of the type - specifies number and order of numbers
 		update(): simply increments the numbers by delta
 		draw(): called clientside
