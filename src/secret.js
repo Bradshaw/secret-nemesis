@@ -1,12 +1,12 @@
-var mime = require('mime')
+mime = require('mime')
   , app = require('http').createServer(handler)
   , io = require('socket.io').listen(app)
   , fs = require('fs');
 
 
-/*
-var repl = require('repl');
-var rep = repl.start({
+/**/
+repl = require('repl');
+rep = repl.start({
   prompt: "server> ",
   input: process.stdin,
   output: process.stdout,
@@ -18,17 +18,15 @@ rep.on('exit', function () {
   console.log('Got "exit" event from repl!');
   process.exit();
 });
-*/
+/**/
+
 
 io.set('log level',1)
 
 app.listen(1986);
 
-lol = 0;
-
 function handler (req, res) {
   var filename = req.url;
-  lol = req;
   if (filename === '/') {
     filename = '/index.html';
   }
@@ -42,6 +40,9 @@ function handler (req, res) {
     res.end(data);
   });
 }
+
+
+
 function clock(){
   return (new Date()).getMilliseconds();
 }

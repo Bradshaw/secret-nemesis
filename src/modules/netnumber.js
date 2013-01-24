@@ -10,3 +10,15 @@ var netnumber = function(val, delta){
 		this.delta = 0;
 	}
 }
+
+netnumber.prototype.update = function() {
+	this.val += this.delta;
+};
+
+netnumber.prototype.setDelta = function(delta) {
+	this.delta = delta;
+};
+
+netnumber.prototype.setValue = function(val) {
+	this.val = val;
+};

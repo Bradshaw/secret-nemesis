@@ -2,7 +2,7 @@ var ctx = $('#canvas')[0].getContext("2d");
 var canvas = document.getElementById('canvas');
 var lines = 0
 var log = [];
-var updateRate = 1000/60;
+var updateRate = 1000/20;
 
 function bind(scope, fn) {
     return function () {
@@ -59,6 +59,8 @@ loadScript('modules/gamestate.js',function(data){
     },(updateRate));
     loader.require('modules/input.js');
     loader.require('app/main.js');
+    loader.require('modules/clock.js');
+    loader.require('modules/netnumber.js');
     gs.switchstate(loader.state);
   })
 },'script');
